@@ -1,0 +1,21 @@
+{
+  "repo": "the-ticket-fairy",
+  "feeds": [
+    {
+      "source": "https://ticketfairy.com/blog/feed/",
+      "feed_url": "https://ticketfairy.com/blog/feed/",
+      "title": "",
+      "saved": 0,
+      "method": "feed"
+    },
+    {
+      "source": "https://ticketfairy.com",
+      "feed_url": "https://ticketfairy.com/blog/feed/",
+      "title": "",
+      "saved": 0,
+      "method": "discovered"
+    }
+  ],
+  "post_count": 20,
+  "fetched": "2026-08-01T15:49:00Z"
+}

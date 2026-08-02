@@ -1,9 +1,27 @@
 aid: the-ticket-fairy
 name: The Ticket Fairy
-description: The Ticket Fairy is a company surfaced as a portfolio company of 500-global, y-combinator
-  and added to the API Evangelist network as a stub for enrichment. This profile is a lead awaiting the
-  enrichment pipeline.
+description: >-
+  The Ticket Fairy is an event ticketing and audience-marketing platform for concerts,
+  festivals, conferences, and live experiences, operating across the UK, USA, Canada,
+  Australia, New Zealand, Mexico, India, and Indonesia. It gives event organizers a
+  ticketing storefront with transparent fees, embeddable widgets, white-label checkout,
+  referral and analytics tooling, and marketed "API access" so organizers can sell
+  tickets from their own sites. The Ticket Fairy is backed by 500 Global and Y Combinator.
+  As of this enrichment pass the company markets API access as a white-label feature but
+  publishes no public developer portal, API reference, or machine-readable specification.
 url: https://raw.githubusercontent.com/api-evangelist/the-ticket-fairy/refs/heads/main/apis.yml
+accessModel:
+  pricing: unknown
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Unknown
+  confidence: low
+  source: []
+  generated: '2026-07-22'
+  method: derived
+image: https://www.ticketfairy.com/resources/images/logos/tf_black_long.png
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
@@ -13,9 +31,15 @@ x-tier: stub
 x-tier-reason: portfolio-lead
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-21'
 tags:
 - Company
+- Ticketing
+- Events
+- Event Management
+- Payments
+- Marketing
+- Entertainment
 apis: []
 maintainers:
 - FN: Kin Lane
@@ -25,3 +49,22 @@ maintainers:
 common:
 - type: Website
   url: https://ticketfairy.com
+- type: Blog
+  url: https://www.ticketfairy.com/blog/
+- type: Pricing
+  url: https://www.ticketfairy.com/event-ticketing/event-ticketing-pricing
+- type: Login
+  url: https://www.ticketfairy.com/login/
+- type: Support
+  url: https://www.ticketfairy.com/support/
+- type: TermsOfService
+  url: https://www.ticketfairy.com/terms-of-service
+- type: PrivacyPolicy
+  url: https://www.ticketfairy.com/privacy-policy
+- type: DomainSecurity
+  url: security/the-ticket-fairy-domain-security.yml
+x-enrichment:
+  date: '2026-07-21'
+  status: minimal
+  artifacts_added: 1
+  pass: local-v1
