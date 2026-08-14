@@ -1,26 +1,33 @@
 aid: the-ticket-fairy
 name: The Ticket Fairy
 description: >-
-  The Ticket Fairy is an event ticketing and audience-marketing platform for concerts,
-  festivals, conferences, and live experiences, operating across the UK, USA, Canada,
-  Australia, New Zealand, Mexico, India, and Indonesia. It gives event organizers a
-  ticketing storefront with transparent fees, embeddable widgets, white-label checkout,
-  referral and analytics tooling, and marketed "API access" so organizers can sell
-  tickets from their own sites. The Ticket Fairy is backed by 500 Global and Y Combinator.
-  As of this enrichment pass the company markets API access as a white-label feature but
-  publishes no public developer portal, API reference, or machine-readable specification.
+  The Ticket Fairy is an event ticketing, marketing and operations platform for live events —
+  festivals, club nights, concerts, conferences and tours — operating across the US, UK, Canada,
+  Mexico, the EU, Australia, New Zealand, Singapore, Indonesia and India. Organizers get a
+  ticketing storefront with transparent all-inclusive fees, embedded checkout on their own domain,
+  an event website builder, referral and multi-network ad marketing, door scanning and RFID,
+  face-value anti-scalping resale, payment plans, white-label ticketing, and embedded banking and
+  working capital advanced against ticket sales. It is backed by Y Combinator and 500 Global and
+  reports $300M+ in ticket sales processed. A real REST API exists and parts of it answer
+  anonymously (https://www.ticketfairy.com/api), and the company ships first-party React and React
+  Native checkout SDKs plus a WordPress plugin on npm and GitHub — but as of this pass it
+  publishes no developer portal, no API reference, no machine-readable specification and no
+  authentication documentation. It does publish an llms.txt and serves a Markdown twin of every
+  website page.
 url: https://raw.githubusercontent.com/api-evangelist/the-ticket-fairy/refs/heads/main/apis.yml
 accessModel:
-  pricing: unknown
-  onboarding: unknown
+  pricing: transaction-fee
+  onboarding: self-serve
   trial: false
   try_now: false
-  public: false
-  label: Unknown
-  confidence: low
-  source: []
-  generated: '2026-07-22'
-  method: derived
+  public: partial
+  label: Public product, undocumented API
+  confidence: medium
+  source:
+  - https://www.ticketfairy.com/event-ticketing/pricing
+  - https://www.ticketfairy.com/api/countries/list
+  generated: '2026-08-13'
+  method: probed
 image: https://www.ticketfairy.com/resources/images/logos/tf_black_long.png
 x-type: company
 x-source: vc-portfolio
@@ -31,7 +38,7 @@ x-tier: stub
 x-tier-reason: portfolio-lead
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-21'
+modified: '2026-08-13'
 tags:
 - Company
 - Ticketing
@@ -40,7 +47,41 @@ tags:
 - Payments
 - Marketing
 - Entertainment
-apis: []
+- Checkout
+- Festivals
+- Live Events
+- Embedded Commerce
+- Access Control
+apis:
+- name: The Ticket Fairy REST API
+  description: >-
+    The REST API behind Ticket Fairy's ticket-buying experience: events, ticket types, time slots,
+    add-ons, promo codes, cart, checkout, payment, orders, issued tickets and face-value resale,
+    plus OAuth token issuance, customer profiles and country/state reference data. A public read
+    slice answers anonymously — /api/countries/list and, on the theticketfairy.com host,
+    /api/public/filtered-events, which is the endpoint the company's own WordPress plugin calls.
+    The rest requires an OAuth Bearer token or the platform's parallel guest token. The API is
+    real, live and idempotency-aware, but it is entirely undocumented: there is no reference, no
+    OpenAPI, and robots.txt disallows /api/*. Everything profiled here was read from the company's
+    own first-party npm checkout SDKs and from live anonymous probes.
+  humanURL: https://www.ticketfairy.com/event-ticketing/embedded-ticket-checkout
+  baseURL: https://www.ticketfairy.com/api
+  tags:
+  - Ticketing
+  - Checkout
+  - Events
+  - Payments
+  properties:
+  - type: Authentication
+    url: authentication/the-ticket-fairy-authentication.yml
+  - type: Conventions
+    url: conventions/the-ticket-fairy-conventions.yml
+  - type: ErrorCatalog
+    url: errors/the-ticket-fairy-problem-types.yml
+  - type: DataModel
+    url: data-model/the-ticket-fairy-data-model.yml
+  - type: RateLimits
+    url: rate-limits/the-ticket-fairy-rate-limits.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
@@ -52,19 +93,51 @@ common:
 - type: Blog
   url: https://www.ticketfairy.com/blog/
 - type: Pricing
-  url: https://www.ticketfairy.com/event-ticketing/event-ticketing-pricing
+  url: https://www.ticketfairy.com/event-ticketing/pricing
 - type: Login
   url: https://www.ticketfairy.com/login/
+- type: SignUp
+  url: https://manage.ticketfairy.com/welcome
 - type: Support
   url: https://www.ticketfairy.com/support/
 - type: TermsOfService
   url: https://www.ticketfairy.com/terms-of-service
 - type: PrivacyPolicy
   url: https://www.ticketfairy.com/privacy-policy
+- type: GitHubOrganization
+  url: https://github.com/theticketfairy
 - type: DomainSecurity
   url: security/the-ticket-fairy-domain-security.yml
+- type: LLMsTxt
+  url: llms/the-ticket-fairy-llms.txt
+- type: Packages
+  url: packages/the-ticket-fairy-packages.yml
+- type: SDKs
+  url: packages/the-ticket-fairy-packages.yml
+- type: Authentication
+  url: authentication/the-ticket-fairy-authentication.yml
+- type: Conventions
+  url: conventions/the-ticket-fairy-conventions.yml
+- type: Idempotency
+  url: conventions/the-ticket-fairy-conventions.yml
+- type: ErrorCatalog
+  url: errors/the-ticket-fairy-problem-types.yml
+- type: DataModel
+  url: data-model/the-ticket-fairy-data-model.yml
+- type: Components
+  url: components/the-ticket-fairy-components.yml
+- type: Conformance
+  url: conformance/the-ticket-fairy-conformance.yml
+- type: Compliance
+  url: conformance/the-ticket-fairy-conformance.yml
+- type: Plans
+  url: plans/the-ticket-fairy-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/the-ticket-fairy-rate-limits.yml
+- type: Lifecycle
+  url: lifecycle/the-ticket-fairy-lifecycle.yml
 x-enrichment:
-  date: '2026-07-21'
-  status: minimal
-  artifacts_added: 1
+  date: '2026-08-13'
+  status: enriched
+  artifacts_added: 14
   pass: local-v1
