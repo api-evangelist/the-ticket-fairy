@@ -1,0 +1,58 @@
+generated: '2026-08-13'
+method: probed
+source: >-
+  https://github.com/theticketfairy/homebrew-tap (Formula/ticketfairy.rb and README.md, last
+  pushed 2026-05-11), plus live probes of npm on 2026-08-13
+note: >-
+  A CLI IS ANNOUNCED BUT NOT RELEASED. The company publishes a real, public Homebrew tap whose
+  README documents `brew install theticketfairy/tap/ticketfairy`, and a release automation
+  pipeline that is described in detail. The formula it currently ships, however, still carries the
+  unreplaced release placeholders, so the documented install command cannot succeed. Recorded
+  because the intent and the plumbing are genuinely public; NO CLI pointer is emitted in apis.yml,
+  because nothing installable exists.
+published: false
+installable: false
+
+tap:
+  url: https://github.com/theticketfairy/homebrew-tap
+  documented_install: brew install theticketfairy/tap/ticketfairy
+  formula: Formula/ticketfairy.rb
+  formula_state: placeholder
+  formula_version: '0.0.0'
+  formula_sha256: 'all zeros (unreplaced template token)'
+  formula_url: https://registry.npmjs.org/@theticketfairy/cli/-/cli-0.0.0.tgz
+  formula_url_status: 404
+  license: MIT
+  depends_on: node
+
+package:
+  registry: npm
+  name: '@theticketfairy/cli'
+  status: 404
+  note: 'The scoped npm package the formula installs from does not exist.'
+
+source_repository:
+  url: https://github.com/theticketfairy/ticketfairy-cli
+  visibility: private
+  note: >-
+    Referenced as the formula `homepage` and in the tap README, but the repository is not public,
+    so the command surface cannot be read.
+
+release_pipeline:
+  documented: true
+  source: 'homebrew-tap README.md'
+  described: >-
+    A vX.Y.Z tag on the CLI repo triggers a release workflow; `pack-tarballs` builds standalone
+    tarballs for darwin-arm64, darwin-x64, linux-arm64 and linux-x64 and uploads them as Release
+    assets; a `bump-homebrew` job regenerates the formula from
+    Formula/ticketfairy.rb.template via scripts/update-formula.sh and pushes it.
+  inference: >-
+    The formula still holding VERSION_PLACEHOLDER-derived values means no vX.Y.Z tag has ever run
+    the pipeline to completion.
+
+commands: []
+command_count: 0
+gaps:
+- Documented install command resolves to a 404 tarball.
+- No published command reference; the CLI source repository is private.
+- Four target platforms are described in the release pipeline but no release asset exists.

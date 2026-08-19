@@ -1,0 +1,72 @@
+generated: '2026-08-13'
+method: probed
+source: >-
+  tf-checkout-react-native@1.0.47 src/api/Constants.ts and src/helpers/Domains.ts (npm), plus live
+  probes of the named hosts on 2026-08-13
+note: >-
+  NO USABLE PUBLIC SANDBOX. Ticket Fairy publishes no testing documentation, no test credentials,
+  no test card numbers and no fixture tooling. Two non-production environments are named in the
+  company's own SDK — a sandbox and a staging host — and both were probed. The sandbox host does
+  not serve; the staging host serves the web application but not the SDK's API path. NO Sandbox
+  pointer is emitted in apis.yml, because an environment an integrator cannot reach is not a
+  sandbox.
+published_sandbox: false
+test_credentials_published: false
+test_cards_published: false
+test_clocks: false
+fixture_tooling: false
+
+environments:
+- id: production
+  base_url: https://www.ticketfairy.com/api
+  source: 'Constants.BASE_URL'
+  probe:
+    url: https://www.ticketfairy.com/api/countries/list
+    status: 200
+    content_type: application/json
+- id: sandbox
+  base_url: https://sandbox.ticketfairy.com/api
+  source: 'Constants.BASE_URL_DEV'
+  probe:
+    url: https://sandbox.ticketfairy.com/api/v1/countries/list
+    status: 502
+    content_type: text/plain
+  usable: false
+  note: >-
+    Named by the provider's own client library as the DEV environment, but the origin returns a
+    502 Bad Gateway. Whatever runs behind it is not reachable from the public internet.
+- id: staging
+  base_url: https://test.ticketfairy.com/api
+  source: 'Constants.BASE_URL_STAG'
+  probe:
+    url: https://test.ticketfairy.com/api/v1/countries/list
+    status: 404
+    content_type: text/html
+  usable: false
+  note: >-
+    The host resolves and serves the Ticket Fairy web application, but the API path 404s to an
+    HTML page. Not an integrator-facing test environment.
+
+environment_selection:
+  mechanism: >-
+    The SDK selects an environment with a CLIENT + ENV pair (src/helpers/Domains.ts). ENV is one
+    of DEV / STAG / PROD; CLIENT selects a white-label tenant. The only tenants hard-coded in the
+    public library are `ttf` (Ticket Fairy itself) and `mana` (manacommon.com) — evidence that the
+    white-label product is real and runs on the same client stack, but tenant onboarding is not
+    self-serve.
+  key_prefixes: none
+
+console:
+  url: https://manage.ticketfairy.com/welcome
+  type: 'organizer dashboard'
+  self_serve_signup: true
+  api_playground: false
+  note: >-
+    There is a free-to-create organizer dashboard, but it is the product's operating console, not
+    a developer console: it exposes no API keys page, no request builder and no API reference that
+    was reachable without an account.
+
+gaps:
+- No test mode, no test key prefix, no test card or magic identifier is published.
+- The sandbox host the company's own SDK points at returns 502.
+- API credentials cannot be obtained self-serve; there is no key-issuance page.

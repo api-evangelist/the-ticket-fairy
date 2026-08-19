@@ -1,0 +1,259 @@
+generated: '2026-08-13'
+method: derived
+source: >-
+  tf-checkout-react-native@1.0.47 (npm, published by the `theticketfairy` account) —
+  src/types/*.ts and src/api/ApiClient.ts; live anonymous responses from
+  https://www.ticketfairy.com/api/countries/list and
+  https://www.theticketfairy.com/api/public/filtered-events (2026-08-13)
+note: >-
+  DERIVED FROM THE COMPANY'S OWN CLIENT LIBRARY, NOT FROM A SPEC. The Ticket Fairy publishes no
+  OpenAPI and no object reference, so the entity graph below is reconstructed from the TypeScript
+  interfaces the company ships in its public npm checkout SDK and from the JSON the live API
+  returns. Field lists are the SDK's, verbatim in name. This is a faithful reading of a
+  first-party artifact, not a specification — treat it as the buyer/checkout projection of the
+  platform's data model, because that is all the checkout SDK sees. The organizer-side model
+  (events management, payouts, marketing, scanning) is not represented here and is not public.
+scope: 'buyer + checkout surface only'
+
+entities:
+- name: Event
+  interface: IEvent
+  id_field: 'slug (url_name) + eventId'
+  fields_sample:
+  - name
+  - slug
+  - description
+  - date
+  - startDate
+  - endDate
+  - salesStart
+  - salesEnd
+  - salesStarted
+  - salesEnded
+  - presalesStarted
+  - presalesEnded
+  - country
+  - currency
+  - timezone
+  - imageUrl
+  - backgroundImage
+  - feeMode
+  - feesIncluded
+  - isTimeSlotEvent
+  - enableWaitingList
+  - referralsEnabled
+  - passwordProtected
+  - tableMapEnabled
+  - minimumAge
+  - l10nLanguages
+  note: >-
+    The event object carries marketing plumbing as first-class fields — pagePixels,
+    checkoutPixels, conversionPixels, brandGoogleAnalyticsKey, facebookEvent — which is the data
+    shape of a ticketing platform that is also an ad-attribution platform.
+- name: TicketType
+  interface: ITicket
+  id_field: id
+  fields_sample:
+  - displayName
+  - price
+  - basePrice
+  - priceCurrency
+  - priceSymbol
+  - feeIncluded
+  - taxesIncluded
+  - taxName
+  - minQuantity
+  - maxQuantity
+  - totalStock
+  - soldOut
+  - salesStarted
+  - salesEnded
+  - waitingListEnabled
+  - isTable
+  - guestPrice
+  - minGuests
+  - maxGuests
+  - x_face_value
+  note: >-
+    `x_face_value` is the anchor for the platform's face-value resale product — a ticket cannot be
+    resold above it.
+- name: TimeSlot
+  interface: ITimeslotsAdaptedData
+  note: 'Only present when Event.isTimeSlotEvent is true; fetched by date.'
+- name: Cart
+  interface: ICartData
+  id_field: 'server-side session (cart is fetched, not addressed by id)'
+- name: Checkout
+  interface: ICheckoutResponseData
+- name: Order
+  interface: IOrderData
+  id_field: 'hash (an opaque order hash used in every order URL)'
+- name: Ticket
+  interface: IAccountOrdersTicket
+  id_field: id
+  fields_sample:
+  - orderId
+  - hash
+  - qrData
+  - ticketType
+  - ticketTypeHash
+  - status
+  - holderName
+  - holderEmail
+  - holderPhone
+  - price
+  - currency
+  - retainAmountOnSale
+  - isSellable
+  - isOnSale
+  - pdfLink
+  - createdAt
+  note: >-
+    The issued ticket, distinct from TicketType. `qrData` is the scan payload, `isSellable` /
+    `isOnSale` / `retainAmountOnSale` are the resale-marketplace state machine.
+- name: TicketHolder
+  interface: ITicketHolderData
+  note: 'Per-ticket attendee identity, separate from the purchasing Customer.'
+- name: AddOn
+  interface: IOrderAddOn
+  note: 'Merchandise / upgrades sold alongside a ticket (v1/event/{id}/add-ons).'
+- name: Customer
+  interface: IUserProfile
+  id_field: customerId
+  fields_sample:
+  - firstName
+  - lastName
+  - email
+  - phone
+  - streetAddress
+  - city
+  - state
+  - stateId
+  - zipCode
+  - countryId
+  - company
+  - dateOfBirth
+- name: Country
+  interface: ICountry
+  id_field: id
+  source_endpoint: 'GET https://www.ticketfairy.com/api/countries/list (anonymous, 200)'
+- name: State
+  interface: IStatesData
+  source_endpoint: 'GET /api/countries/{countryId}/states/'
+- name: Venue
+  note: >-
+    Not a standalone interface in the SDK — venue is denormalized onto the issued ticket
+    (venueName, venueCity, venueState, venueCountry, venueStreet, venuePostalCode,
+    venueLatitude, venueLongitude, venueGooglePlaceId). It IS addressable as a filter on the
+    public events feed (filters[item_type]=venue), so a venue entity exists server-side.
+- name: Brand
+  note: >-
+    Same shape as Venue: no SDK interface, but filters[item_type]=brand is a first-class filter on
+    the public events feed and the WordPress plugin's primary grouping. A brand is the organizer /
+    promoter identity that owns events.
+- name: Referral
+  note: >-
+    Surfaced as Event.referrals / Event.referralsEnabled / hideTopInfluencers and as the
+    `Referrer-Id` request header. Referral attribution is carried in the transport layer, not only
+    in the payload.
+- name: WaitingListEntry
+  source_endpoint: 'POST /api/v1/event/{eventId}/add_to_waiting_list'
+- name: PromoCode
+  interface: IPromoCodeResponse
+  note: 'Applied via the Promotion-Code / Promotion-Event request headers.'
+- name: ResaleListing
+  source_endpoint: 'POST and DELETE /api/v1/ticket/{orderHash}/sell'
+  note: 'Face-value resale; the DELETE removes a ticket from resale.'
+
+relationships:
+- from: Brand
+  to: Event
+  type: has_many
+  via: 'filters[item_type]=brand + filters[item_id]'
+- from: Venue
+  to: Event
+  type: has_many
+  via: 'filters[item_type]=venue + filters[item_id]'
+- from: Event
+  to: TicketType
+  type: has_many
+  via: 'GET /api/v1/event/{eventId}/tickets/'
+- from: Event
+  to: TimeSlot
+  type: has_many
+  via: 'getTimeSlotsByDate; only when isTimeSlotEvent'
+- from: Event
+  to: AddOn
+  type: has_many
+  via: 'GET /api/v1/event/{eventId}/add-ons'
+- from: Event
+  to: WaitingListEntry
+  type: has_many
+  via: 'POST /api/v1/event/{eventId}/add_to_waiting_list'
+- from: Cart
+  to: TicketType
+  type: has_many
+  via: 'POST /api/v1/event/{eventId}/add-to-cart/'
+- from: Cart
+  to: Checkout
+  type: has_one
+  via: 'POST /api/v1/on-checkout/ then POST /api/v1/checkout'
+- from: Checkout
+  to: Order
+  type: has_one
+  via: 'POST /api/v1/order/{orderHash}/success'
+- from: Order
+  to: Ticket
+  type: has_many
+  via: 'IOrderData.tickets'
+- from: Order
+  to: Event
+  type: belongs_to
+  via: 'IAccountOrdersTicket.eventId / eventUrl'
+- from: Order
+  to: Customer
+  type: belongs_to
+  via: 'the authenticated Bearer token, or the guest token for an account-less purchase'
+- from: Ticket
+  to: TicketType
+  type: belongs_to
+  via: ticketTypeHash
+- from: Ticket
+  to: TicketHolder
+  type: has_one
+  via: 'holderName / holderEmail / holderPhone'
+- from: Ticket
+  to: ResaleListing
+  type: has_one
+  via: 'isOnSale / POST /api/v1/ticket/{orderHash}/sell'
+- from: Customer
+  to: Country
+  type: belongs_to
+  via: countryId
+- from: Customer
+  to: State
+  type: belongs_to
+  via: stateId
+- from: Country
+  to: State
+  type: has_many
+  via: 'GET /api/countries/{countryId}/states/'
+
+identifiers:
+  note: >-
+    Two identifier styles coexist. Numeric/opaque `id` on catalog objects (event, ticket type,
+    country, state) and an opaque `hash` on anything a buyer holds a link to (order hash, ticket
+    hash, ticketTypeHash). Order and ticket URLs are hash-addressed, which is what makes an
+    emailed order link work without authentication. No prefixed-id scheme (no `evt_`/`ord_`).
+
+pagination_fields:
+  observed_on: IAccountTicketsAttributes
+  fields:
+  - page
+  - limit
+  - total_count
+  - total_pages
+
+entity_count: 17
+relationship_count: 19
+render: null

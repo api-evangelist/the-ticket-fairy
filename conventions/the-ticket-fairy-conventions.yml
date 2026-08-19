@@ -1,0 +1,148 @@
+generated: '2026-08-13'
+method: probed
+source: >-
+  Live probes of https://www.ticketfairy.com/api/ and https://www.theticketfairy.com/api/public/
+  on 2026-08-13 (response bodies + CORS preflight headers), corroborated against
+  tf-checkout-react-native@1.0.47 src/api/ApiClient.ts
+note: >-
+  The Ticket Fairy publishes no API reference, so every convention below was established by
+  calling the live API anonymously and reading the headers and envelopes it actually returns,
+  then cross-checking against the company's own npm client library. Nothing here is inferred
+  from prose.
+api: The Ticket Fairy REST API
+base_url: https://www.ticketfairy.com/api
+
+auth:
+  style: 'OAuth2 Bearer + a parallel guest token; parts of the API are anonymous'
+  header: 'Authorization: Bearer <token>'
+  guest_header: Authorization-Guest
+  detail: authentication/the-ticket-fairy-authentication.yml
+
+idempotency:
+  supported: true
+  method: probed
+  header: Idempotency-Key
+  replay_header: Idempotent-Replayed
+  evidence:
+    url: https://www.ticketfairy.com/api/v1/cart/
+    probe: CORS preflight (OPTIONS), 2026-08-13
+    access_control_allow_headers: >-
+      origin, content-type, accept, x-tf-ecommerce, authorization, authorization-guest,
+      promotion-code, promotion-event, referrer-id, device-info, referer-url, additional-cookies,
+      phpr-remote-event, idempotency-key, x-tf-context
+    access_control_expose_headers: 'x-tf-ecommerce, content-disposition, idempotent-replayed'
+  scope: unknown
+  retention: unknown
+  detail: >-
+    The origin accepts an `idempotency-key` request header on every /api/ route and EXPOSES an
+    `idempotent-replayed` response header to browsers — the pair only makes sense if the server
+    deduplicates on the key and tells the caller when it served a stored replay. This is the
+    Stripe-shaped idempotency contract, implemented and live. It is, however, completely
+    undocumented: the company publishes no reference stating which operations honor the key, what
+    key format is expected, how long keys are retained, or what happens on a conflicting replay.
+    A caller can only discover it by reading a CORS preflight, which is how it was found here.
+
+pagination:
+  documented: false
+  style: page-number
+  params:
+  - page
+  - limit
+  response_fields:
+  - page
+  - limit
+  - total_count
+  - total_pages
+  observed: >-
+    The public read endpoints return a complete unpaginated array under `data`. The paged shape is
+    visible only on the authenticated account surface: IAccountTicketsAttributes in
+    tf-checkout-react-native declares page / limit / total_count / total_pages. Offset+limit page
+    numbering, no cursor, no Link header.
+
+versioning:
+  style: path
+  pattern: /api/v1/<resource>
+  current: v1
+  note: >-
+    Mixed. Most operations are under /api/v1/, but several are unversioned at the /api/ root —
+    /api/countries/list, /api/countries/{id}/states/, /api/customer/profile/, /api/auth,
+    /api/auth/reset-password — and the WordPress plugin's public feed is at
+    /api/public/filtered-events with no version at all. There is no published deprecation or
+    version-support policy.
+
+error_envelope:
+  documented: false
+  observed_public:
+    shape: '{data, success, error, message, status}'
+    example_422: '{"success":false,"error":true,"message":"The item type field is required.","status":422}'
+    example_200: '{"data":[],"success":true,"error":false,"message":"","status":200}'
+    note: >-
+      The public surface duplicates the HTTP status inside the body and carries a human-readable
+      `message` only — no machine-readable error code, no error type URI, not RFC 9457.
+  observed_authenticated:
+    shape: 'JSON:API — data.attributes; OAuth errors carry error_description'
+  detail: errors/the-ticket-fairy-problem-types.yml
+
+media_types:
+  public_endpoints: application/json
+  checkout_api: application/vnd.api+json
+  note: The two surfaces do not share a content type or an envelope.
+
+content_negotiation:
+  markdown_twin: true
+  method: probed
+  detail: >-
+    Every marketing/content page is served as Markdown either by appending `.md` to the URL or by
+    sending `Accept: text/markdown` — confirmed live: GET
+    https://www.ticketfairy.com/event-ticketing/pricing.md returns 200 text/markdown. This is a
+    deliberate agent-facing affordance and is advertised in the company's own llms.txt. It applies
+    to the WEBSITE, not to the API.
+
+request_headers_custom:
+  source: CORS preflight, 2026-08-13
+  headers:
+  - name: X-TF-Ecommerce
+    note: Also echoed back in Access-Control-Expose-Headers.
+  - name: X-TF-Context
+  - name: Promotion-Code
+  - name: Promotion-Event
+  - name: Referrer-Id
+    note: Carries the referral attribution that the platform's referral-marketing product runs on.
+  - name: Device-Info
+  - name: Referer-Url
+  - name: Additional-Cookies
+  - name: PHPR-Remote-Event
+  - name: Idempotency-Key
+
+cors:
+  allow_origin: https://manage.ticketfairy.com
+  allow_credentials: true
+  allow_methods: 'GET, POST, PUT, PATCH, DELETE, OPTIONS'
+  max_age: 86400
+  note: >-
+    Access-Control-Allow-Origin is pinned to the company's own dashboard host, so the API is not
+    callable from an arbitrary browser origin even for the anonymous endpoints.
+
+rate_limits:
+  documented: false
+  observed_headers: []
+  detail: rate-limits/the-ticket-fairy-rate-limits.yml
+
+request_id_tracing:
+  supported: false
+  observed: >-
+    No request-id, trace-id or correlation header is returned. The only per-response identifier is
+    Cloudflare's `cf-ray`, which is edge infrastructure, not an API affordance.
+
+retries:
+  client_default: >-
+    The first-party client library configures axios-retry with 3 retries and a 60s timeout — the
+    provider's own expectation of transient failure, but not a published policy.
+
+crawler_policy:
+  robots_txt: https://www.ticketfairy.com/robots.txt
+  api_disallowed: true
+  rule: 'Disallow: /api/*'
+  note: >-
+    The API namespace is explicitly disallowed to crawlers in robots.txt even though parts of it
+    answer anonymously.

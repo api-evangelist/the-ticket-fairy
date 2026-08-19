@@ -1,0 +1,96 @@
+generated: '2026-08-13'
+method: probed
+source: >-
+  Live responses from https://www.theticketfairy.com/api/public/filtered-events and
+  https://www.ticketfairy.com/api/ (2026-08-13), plus the error handling in
+  tf-checkout-react-native@1.0.47 (src/api/ErrorHandler.ts, src/types/IError.ts,
+  src/api/ApiClient.ts response interceptor)
+note: >-
+  NOT AN RFC 9457 API and NOT a published error reference. The Ticket Fairy publishes no error
+  documentation of any kind. The catalog below is the union of what the live API actually returned
+  and what the company's own client library is written to handle. It is deliberately short: only
+  errors that were observed or that the SDK explicitly branches on are listed. No error code was
+  invented to fill the table.
+format: custom-envelope
+rfc9457: false
+problem_json_media_type: false
+
+envelope:
+  public_surface:
+    fields:
+      data: 'payload; [] on an empty result'
+      success: boolean
+      error: boolean
+      message: 'human-readable string; empty string on success'
+      status: 'the HTTP status, duplicated into the body'
+    example: '{"success":false,"error":true,"message":"The item type field is required.","status":422}'
+    machine_readable_code: false
+    note: >-
+      There is no stable error code, error type, or field-level error map — only a prose
+      `message`. A client cannot branch on anything but the HTTP status and a string.
+  oauth_surface:
+    fields:
+      error_description: 'human-readable OAuth failure reason'
+    note: >-
+      The SDK's response interceptor reads `error_description` off 401 responses specifically,
+      which is the OAuth 2.0 error body shape (RFC 6749 §5.2).
+
+problem_types:
+- status: 422
+  title: Validation failed
+  observed: true
+  evidence: >-
+    GET https://www.theticketfairy.com/api/public/filtered-events?filters[upcoming]=true →
+    422 {"success":false,"error":true,"message":"The item type field is required.","status":422}
+  message_style: >-
+    Laravel-style validator sentence naming the missing/invalid field ("The item type field is
+    required."). One message per response; no field map.
+  remediation: >-
+    Supply the required filter parameters. filtered-events requires filters[item_type] (brand or
+    venue) and filters[item_id].
+- status: 401
+  title: Unauthorized / expired access token
+  observed: false
+  evidence: >-
+    tf-checkout-react-native src/api/ApiClient.ts response interceptor branches on
+    error.response.status === 401 and substitutes error_description as the message.
+  remediation: >-
+    Re-run the OAuth flow at /api/v1/oauth/access_token. The client library treats 401 as the
+    token-refresh trigger; no separate refresh endpoint is documented.
+- status: 404
+  title: Not found
+  observed: true
+  evidence: >-
+    GET https://www.ticketfairy.com/api/v1/countries/list → 404 (the versioned path does not
+    exist; the resource is at the unversioned /api/countries/list). Note the body is the site's
+    text/html 404 page, not a JSON envelope — an unrouted /api/ path falls through to the web
+    app's HTML 404.
+  remediation: >-
+    Check whether the operation is versioned. The API mixes /api/v1/* and unversioned /api/*
+    routes and there is no reference to tell them apart.
+- status: 502
+  title: Sandbox environment unavailable
+  observed: true
+  evidence: 'GET https://sandbox.ticketfairy.com/api/v1/countries/list → 502 text/plain'
+  remediation: >-
+    None available to an integrator — the sandbox host named in the company's own SDK is not
+    serving. See sandbox/the-ticket-fairy-sandbox.yml.
+
+client_side_conditions:
+  source: tf-checkout-react-native src/api/ErrorHandler.ts
+  note: >-
+    Where the API returns no usable message, the SDK substitutes its own strings. These are CLIENT
+    strings, not API errors, and are listed only so they are not mistaken for a provider error
+    vocabulary.
+  strings:
+  - 'Something went wrong!'
+  - 'Connection time out (axios ECONNABORTED)'
+  - 'Access token not found'
+
+gaps:
+- No published error reference, anywhere.
+- No stable machine-readable error codes — clients must string-match `message`.
+- No application/problem+json; RFC 9457 is not implemented.
+- Unrouted /api/ paths return an HTML 404 page instead of the JSON envelope, so a client parsing
+  JSON on every response will fail to parse rather than see an error.
+error_count: 4

@@ -1,0 +1,73 @@
+generated: '2026-08-13'
+method: probed
+source: >-
+  Live probes of https://status.ticketfairy.com, https://www.ticketfairy.com/api/,
+  the sitemap index at https://www.ticketfairy.com/sitemap.xml (189 content URLs walked), and
+  tf-checkout-react-native@1.0.47
+note: >-
+  NO PUBLISHED LIFECYCLE POSTURE. Ticket Fairy publishes no status page, no changelog, no
+  versioning policy, no deprecation policy and no SLA document. The whole of this artifact is a
+  record of absences, each one probed. No StatusPage and no Deprecation pointer is emitted in
+  apis.yml, because neither exists.
+
+versioning:
+  scheme: path
+  current: v1
+  documented: false
+  consistency: mixed
+  detail: >-
+    Most operations sit under /api/v1/, but /api/countries/list, /api/countries/{id}/states/,
+    /api/customer/profile/, /api/auth and /api/auth/reset-password are unversioned, and the public
+    events feed is /api/public/filtered-events. There is no published rule for which is which, and
+    calling the versioned form of an unversioned route returns an HTML 404 (probed:
+    https://www.ticketfairy.com/api/v1/countries/list → 404 text/html).
+
+status_page:
+  published: false
+  probes:
+  - url: https://status.ticketfairy.com/
+    status: 000
+    note: 'Host does not resolve.'
+  - url: https://www.ticketfairy.com/sitemap.xml
+    status: 200
+    note: 'Sitemap index walked; no status, uptime or incident page among the 189 content URLs.'
+
+changelog:
+  published: false
+  note: >-
+    No dated changelog, release-notes page or API updates feed. The company blog
+    (https://www.ticketfairy.com/blog/) is event-industry editorial, not product release notes.
+
+deprecation_policy:
+  published: false
+  headers_observed: []
+  note: >-
+    No Deprecation or Sunset header (RFC 8594) was returned on any probed response, and no
+    deprecation or sunset policy page exists.
+
+sla:
+  published: false
+  note: >-
+    No SLA or uptime commitment is published on the pricing page or any product page checked.
+    Third-party summaries citing a "99.9% uptime guarantee" for Ticket Fairy were checked against
+    the source pages and the claim is not present in them, so it is not recorded.
+
+support:
+  url: https://www.ticketfairy.com/support
+  channels:
+  - email
+  - live chat
+  - social media
+  claimed_coverage: '24/7 ticket-buyer support; dedicated account management for organizers'
+
+client_libraries:
+  note: >-
+    The only dated lifecycle signal available for this provider is npm release metadata on its own
+    checkout SDKs — tf-checkout-react-native 1.0.47 (2026-03-12) and tf-checkout-react 1.7.31
+    (2026-05-22). Both are actively maintained, which is evidence the underlying API is alive even
+    though nothing about it is documented.
+
+gaps:
+- No status page, so an integrator has no incident signal.
+- No changelog, so a breaking change to an undocumented API would arrive silently.
+- No deprecation policy and no Sunset headers.

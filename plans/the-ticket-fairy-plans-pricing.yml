@@ -1,0 +1,82 @@
+generated: '2026-08-13'
+method: searched
+source: https://www.ticketfairy.com/event-ticketing/pricing
+source_machine_readable: https://www.ticketfairy.com/event-ticketing/pricing.md
+note: >-
+  Ticket Fairy sells no subscription plans. There is no seat, tier, or monthly SKU — the product is
+  free to adopt and monetized entirely as a per-ticket fee that steps down as the ticket price
+  rises, charged to the ticket buyer at checkout by default. Captured as a single fee schedule
+  rather than as plans, because that is what the company actually publishes. Read from the page's
+  own Markdown twin (the site serves `.md` for any page), so these figures are the provider's
+  published values verbatim.
+model: transaction-fee
+subscription_plans: false
+plan_count: 0
+free_to_start: true
+setup_fee: 0
+monthly_fee: 0
+currency: USD
+
+fee_schedule:
+  applies_to: 'each paid ticket sold'
+  all_inclusive: true
+  all_inclusive_note: 'One fee covers platform + payment processing.'
+  minimum_fee: 2.00
+  tiers:
+  - ticket_price: 'free'
+    fee: 0
+    note: 'Free tickets carry no platform fee.'
+  - ticket_price: 'under US$20'
+    fee: 2.00
+    fee_type: flat
+  - ticket_price: 'US$20 – US$99.99'
+    fee: '10%'
+    fee_type: percent
+  - ticket_price: 'US$100 – US$249.99'
+    fee: '9%'
+    fee_type: percent
+  - ticket_price: 'US$250 – US$499.99'
+    fee: '8%'
+    fee_type: percent
+  - ticket_price: 'US$500 – US$999.99'
+    fee: '7%'
+    fee_type: percent
+  - ticket_price: 'US$1,000 – US$1,999.99'
+    fee: '6%'
+    fee_type: percent
+  - ticket_price: 'US$2,000 and above'
+    fee: '5%'
+    fee_type: percent
+
+who_pays:
+  default: buyer
+  organizer_absorb_option: true
+  note: '"You keep 100% of the price you set." The organizer may choose to absorb the fee instead.'
+
+included:
+- payment processing (Stripe, Xendit, Razorpay)
+- referral marketing
+- analytics
+- mobile check-in
+- 24/7 support
+- branded event pages
+- embedded checkout ('free for all promoters')
+
+payouts:
+  stripe_connected: 'daily'
+  ticket_fairy_processed: '10–15 business days'
+
+api_pricing:
+  published: false
+  note: >-
+    No price is published for API access, white-label, or the embedded checkout SDKs. The
+    white-label and enterprise surfaces route to a demo booking form
+    (https://www.ticketfairy.com/event-ticketing/book-a-demo), not to a price.
+
+adjacent_products:
+  note: 'Named on the site with no published pricing.'
+  products:
+  - name: Vault (event banking)
+    url: https://www.ticketfairy.com/event-ticketing/event-banking
+  - name: Capital (working capital advanced against ticket sales)
+    url: https://www.ticketfairy.com/capital

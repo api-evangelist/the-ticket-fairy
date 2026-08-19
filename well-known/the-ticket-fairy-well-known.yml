@@ -1,0 +1,90 @@
+generated: '2026-08-13'
+method: probed
+source: live HTTPS probes of every Ticket Fairy host, 2026-08-13
+note: >-
+  NO WELL-KNOWN DOCUMENT IS SERVED. Every RFC 8615 path was probed on all four Ticket Fairy hosts
+  and none returned a document. www.ticketfairy.com and www.theticketfairy.com answer a hard 404
+  (146-byte text/html). manage.ticketfairy.com — the organizer dashboard — is a single-page app
+  with a catch-all route: it answers HTTP 200 with the SPA's text/html shell for EVERY
+  /.well-known/* path, including paths that cannot exist. Those 200s are NOT documents and are
+  recorded as misses. Consequently NO WellKnown, SecurityTxt, or AgentCard pointer is emitted in
+  apis.yml — the probe records an absence, and an absence must not be published as a presence.
+hosts:
+- host: https://www.ticketfairy.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+- host: https://www.theticketfairy.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+- host: https://manage.ticketfairy.com
+  spa_catch_all: true
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    content_type: text/html
+    document: false
+    note: SPA shell, not a document — counted as a miss
+  - path: /.well-known/openid-configuration
+    status: 200
+    content_type: text/html
+    document: false
+    note: SPA shell, not a document — counted as a miss
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    content_type: text/html
+    document: false
+    note: SPA shell, not a document — counted as a miss
+  - path: /.well-known/agent-card.json
+    status: 200
+    content_type: text/html
+    document: false
+    note: SPA shell, not a document — counted as a miss
+  - path: /.well-known/agent.json
+    status: 200
+    content_type: text/html
+    document: false
+    note: SPA shell, not a document — counted as a miss
+adjacent_discovery:
+  note: >-
+    Ticket Fairy publishes no /.well-known/ surface but DOES publish two root-level agent
+    discovery documents, captured elsewhere in this repo.
+  documents:
+  - path: /llms.txt
+    host: https://www.ticketfairy.com
+    status: 200
+    content_type: text/plain
+    file: ../llms/the-ticket-fairy-llms.txt
+  - path: /robots.txt
+    host: https://www.ticketfairy.com
+    status: 200
+    content_type: text/plain
+    note: >-
+      Advertises /llms.txt and /llms-full.txt in comments, and carries "Disallow: /api/*" — the
+      API surface is deliberately excluded from crawlers.
+documents_found: 0

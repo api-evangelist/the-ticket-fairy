@@ -1,0 +1,45 @@
+generated: '2026-08-13'
+method: probed
+source: >-
+  Live responses from https://www.ticketfairy.com/api/countries/list and
+  https://www.theticketfairy.com/api/public/filtered-events, plus a CORS preflight on
+  https://www.ticketfairy.com/api/v1/cart/ (2026-08-13)
+note: >-
+  NO RATE LIMITS ARE PUBLISHED AND NONE ARE SIGNALLED AT RUNTIME. There is no developer
+  documentation to state a limit, and the live API returns no rate-limit headers on any observed
+  response — not RateLimit-*, not X-RateLimit-*, not Retry-After, and `Access-Control-Expose-
+  Headers` (which enumerates exactly what a browser client is permitted to read) lists only
+  x-tf-ecommerce, content-disposition and idempotent-replayed. An integrator therefore has no way
+  to learn a quota except by being throttled. Recorded as an honest zero.
+limit_count: 0
+documented: false
+headers_returned: []
+exhaustion_status: unknown
+
+evidence:
+- url: https://www.ticketfairy.com/api/countries/list
+  status: 200
+  rate_limit_headers: none
+  note: 'Response headers inspected in full; no rate-limit family present.'
+- url: https://www.theticketfairy.com/api/public/filtered-events?filters[item_type]=brand&filters[item_id]=1
+  status: 200
+  rate_limit_headers: none
+- url: https://www.ticketfairy.com/api/v1/cart/
+  status: 200
+  probe: 'OPTIONS (CORS preflight)'
+  access_control_expose_headers: 'x-tf-ecommerce, content-disposition, idempotent-replayed'
+  note: >-
+    No rate-limit header is exposed to browser clients, which is a strong negative signal — an
+    origin that intended callers to read a quota would expose it here.
+
+edge_protection:
+  provider: Cloudflare
+  observed: 'server: cloudflare; cf-ray; __cf_bm bot-management cookie set on every /api/ response'
+  note: >-
+    Abuse control is handled at the CDN edge (Cloudflare Bot Management) rather than as a
+    documented API quota. That is protection, not a published limit: it is invisible to the caller
+    until it fires, and it returns a challenge rather than a 429 with a Retry-After.
+
+crawler_policy:
+  robots_txt: https://www.ticketfairy.com/robots.txt
+  rule: 'Disallow: /api/*'

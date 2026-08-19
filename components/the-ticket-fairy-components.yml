@@ -1,0 +1,76 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://www.ticketfairy.com/event-ticketing/embedded-ticket-checkout,
+  https://github.com/theticketfairy/wp-plugin-tf-events,
+  https://www.npmjs.com/package/tf-checkout-react-native,
+  https://www.npmjs.com/package/tf-checkout-react
+note: >-
+  Embeddable client-side surfaces are the ONLY part of Ticket Fairy's developer story that is
+  publicly documented at all, and they are documented in marketing prose rather than in a
+  reference. No loader script URL, snippet, attribute vocabulary or CDN build is published on the
+  site — the page says "paste one snippet" without showing the snippet, and the snippet is issued
+  per event from inside the organizer dashboard. What is public and inspectable is the WordPress
+  plugin (which hard-codes the public events endpoint) and the two npm checkout libraries.
+families:
+- family: Embedded checkout
+  distribution: 'per-event snippet issued from the organizer dashboard (manage.ticketfairy.com)'
+  documented_url: https://www.ticketfairy.com/event-ticketing/embedded-ticket-checkout
+  snippet_published: false
+  price: 'free for all promoters'
+  components:
+  - name: Buy Button
+    description: >-
+      "Add a simple 'Buy Tickets' button anywhere on your site that opens checkout in place."
+  - name: Inline Checkout
+    description: >-
+      "Embed the full checkout directly in your page so fans complete their purchase without a
+      single redirect."
+  - name: Event Listing Embed
+    description: >-
+      "Show your brand's upcoming events on your own site, each linking straight into checkout."
+  capabilities:
+  - 'Works inside the Instagram and Facebook in-app browsers'
+  - 'Apple Pay and Google Pay through the same gateways as hosted checkout'
+  - 'Sells under the organizer''s own domain and branding'
+- family: WordPress
+  distribution: 'GitHub repository (not listed on the WordPress.org plugin directory)'
+  repository: https://github.com/theticketfairy/wp-plugin-tf-events
+  version: 1.0.5
+  components:
+  - name: '[ttf_events_list] shortcode'
+    description: >-
+      Renders a brand's or venue's upcoming events list. Attributes: `brand` (brand id) and
+      `venue` (venue id).
+    backing_endpoint: https://www.theticketfairy.com/api/public/filtered-events
+    note: >-
+      The plugin embeds an inline fetch against the public events endpoint with
+      filters[item_type], filters[item_id] and filters[upcoming]. This is the only place The
+      Ticket Fairy publishes an API endpoint in the clear.
+- family: Native / React SDK components
+  distribution: npm
+  components:
+  - name: tf-checkout-react-native
+    version: 1.0.47
+    published: '2026-03-12'
+    description: >-
+      Full drop-in checkout for React Native — login/registration, ticket selection, promo codes,
+      billing info, payment, purchase confirmation, my-orders and face-value resale screens.
+    url: https://www.npmjs.com/package/tf-checkout-react-native
+  - name: tf-checkout-react
+    version: 1.7.31
+    published: '2026-05-22'
+    description: 'Web React sibling of the checkout library. Ships no description or docs on npm.'
+    url: https://www.npmjs.com/package/tf-checkout-react
+- family: Mobile apps (not embeddable, listed for completeness)
+  components:
+  - name: Entry Fairy
+    description: >-
+      Free iOS/Android ticket scanning and check-in app. Third-party RFID and badge-printing
+      systems are documented as integrating "via our API feed" to validate the same QR codes.
+loader_libraries: []
+component_count: 8
+gaps:
+- No published embed snippet, script URL, custom-element name or data-attribute reference.
+- No CDN build and no versioned loader — a consumer cannot pin what they are embedding.
+- tf-checkout-react has no repository, homepage or README on npm.

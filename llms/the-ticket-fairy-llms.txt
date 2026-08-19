@@ -1,0 +1,66 @@
+# Ticket Fairy
+
+> Ticket Fairy is a ticketing, marketing and operations platform for live events — festivals, club nights, concerts, conferences and tours. Organisers use it to sell tickets, build event websites, run referral and paid marketing, handle door operations, and get paid; it also offers embedded banking and working capital financed against ticket sales. It has processed over $300M in ticket sales across the US, UK, Canada, Mexico, the EU, Australia, New Zealand, Singapore, Indonesia, India and other markets, for events from 50 to 100,000+ attendees, and is backed by Y Combinator.
+
+## What Ticket Fairy does
+
+- [Ticketing and checkout](https://www.ticketfairy.com/event-ticketing): Sell tickets for festivals, club nights, concerts, conferences and tours.
+- [Embedded checkout](https://www.ticketfairy.com/event-ticketing/embedded-ticket-checkout): Sell on the organiser's own website instead of sending fans elsewhere.
+- [Event website builder](https://www.ticketfairy.com/event-ticketing/event-website-builder): Build and publish an event or brand site without a developer.
+- [Referral marketing](https://www.ticketfairy.com/event-ticketing/referral-marketing-ticketing): Reward the fans who bring other fans, tracked to the individual sale.
+- [Multi-network advertising](https://www.ticketfairy.com/event-ticketing/multi-network-event-advertising): Plan, launch and measure paid campaigns across ad networks from one place.
+- [Social media management](https://www.ticketfairy.com/event-ticketing/social-media-management): Publish, schedule and reply across the brand's social accounts.
+- [Abandoned cart recovery](https://www.ticketfairy.com/event-ticketing/abandoned-cart-recovery): Bring back buyers who left before paying.
+- [AI concierge and support inbox](https://www.ticketfairy.com/event-ticketing/ai-event-concierge): An AI agent that answers fans, and one inbox for every channel.
+- [Analytics and reporting](https://www.ticketfairy.com/event-ticketing/event-data-analytics): Where sales come from, what they cost, and what to do next.
+- [Door scanning and check-in](https://www.ticketfairy.com/event-ticketing/ticket-scanning-app): Scan tickets at the door, online or offline.
+- [RFID and cashless](https://www.ticketfairy.com/event-ticketing/rfid-cashless-events): Wristband access control and cashless spending on site.
+- [Anti-scalping and face-value resale](https://www.ticketfairy.com/event-ticketing/anti-scalping-ticketing): A resale marketplace capped at face value so tickets stay with fans.
+- [Payment plans](https://www.ticketfairy.com/event-ticketing/event-payment-plans): Let buyers pay for a ticket in instalments.
+- [White-label](https://www.ticketfairy.com/event-ticketing/white-label-ticketing): Run the entire platform under a partner's own brand and domain.
+- [Event banking (Vault)](https://www.ticketfairy.com/event-ticketing/event-banking): Multi-currency accounts and corporate cards for event businesses.
+- [Event funding (Capital)](https://www.ticketfairy.com/capital): Working capital advanced against ticket sales.
+- [Fai — the AI co-pilot](https://www.ticketfairy.com/event-ticketing/ticket-fairy-ai): An AI agent that can run the dashboard alongside the organiser.
+
+## Who it is for
+
+- [Festivals](https://www.ticketfairy.com/event-ticketing/festivals-events-ticketing): Multi-day, multi-stage events with camping, tiers and payment plans.
+- [Nightclubs and venues](https://www.ticketfairy.com/event-ticketing/night-club-ticketing-software): Recurring nights, residencies and door operations.
+- [Promoters and agencies](https://www.ticketfairy.com/event-ticketing/promoter-ticketing-management-platform): Many events across many brands, with roles for each team.
+- [Conferences](https://www.ticketfairy.com/event-ticketing/conference-ticketing-software): Registration, sessions, timed entry and badges.
+- [Concerts and tours](https://www.ticketfairy.com/event-ticketing/concert-promoter-ticketing-platform): Touring runs, on-sales and artist presales.
+- [Charity and fundraising](https://www.ticketfairy.com/event-ticketing/charity-gala-ticketing): Galas, tables, donations and fundraising events.
+
+## Pricing
+
+- [How pricing works](https://www.ticketfairy.com/event-ticketing/pricing): No mandatory monthly fee to start selling tickets; free tickets carry no platform fee.
+
+## Payments and regions
+
+- [Payments and payouts](https://www.ticketfairy.com/event-ticketing/sell-tickets-with-stripe): Local payment methods and currencies across the Americas, Europe, Africa, Asia-Pacific.
+
+## How Ticket Fairy compares
+
+- [Eventbrite alternative](https://www.ticketfairy.com/event-ticketing/eventbrite-alternative): For organisers outgrowing a general-purpose ticketing tool.
+- [DICE alternative](https://www.ticketfairy.com/event-ticketing/dice-alternative): For music promoters who want to own their audience data.
+- [See Tickets alternative](https://www.ticketfairy.com/event-ticketing/see-tickets-alternative): For festivals moving off a legacy agency platform.
+- [Humanitix alternative](https://www.ticketfairy.com/event-ticketing/humanitix-alternative)
+- [Ticket Tailor alternative](https://www.ticketfairy.com/event-ticketing/ticket-tailor-alternative)
+- [Platform comparison](https://www.ticketfairy.com/event-ticketing/event-ticketing-software-comparison): Side-by-side comparisons across the ticketing market.
+
+## Free tools for organisers
+
+- [Planning tools](https://www.ticketfairy.com/tools): Calculators for capacity, pricing, pacing, budget and commission — no account needed.
+
+## Get started
+
+- [Ticket Fairy home](https://www.ticketfairy.com/): Start here, or create an account.
+- [Live events on sale](https://www.ticketfairy.com/events): What is currently selling on the platform.
+- [Support and contact](https://www.ticketfairy.com/support): Help for organisers and ticket buyers, and how to reach the team.
+- [About the company](https://www.ticketfairy.com/is-ticket-fairy-legit): Y Combinator-backed, $300M+ in ticket sales processed to date.
+
+## More
+
+- [Full platform description](https://www.ticketfairy.com/llms-full.txt): every capability above described in detail, in one file.
+- [Sitemap](https://www.ticketfairy.com/sitemap.xml): every indexable URL, including every live event.
+- Every *page* here is also available as Markdown — add `.md` to any page URL above, or send `Accept: text/markdown`, and the response comes back as Markdown instead of HTML. (The sitemap and other XML feeds are unaffected.)

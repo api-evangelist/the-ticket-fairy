@@ -1,0 +1,83 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://registry.npmjs.org (npm registry metadata), https://github.com/theticketfairy
+  (the company's own GitHub organization), and https://api.wordpress.org/plugins/info/1.0/
+note: >-
+  The Ticket Fairy publishes no developer portal or SDK index page, so every package below was
+  found by walking the company's own GitHub organization (github.com/theticketfairy) and then
+  confirming first-party ownership against npm registry metadata. Both npm packages are published
+  by the npm user `theticketfairy`, which is what establishes them as first-party. npm, PyPI,
+  RubyGems, crates.io, Packagist, NuGet, Maven Central and pkg.go.dev were all checked; only npm
+  carries Ticket Fairy client libraries.
+packages:
+- language: typescript
+  registry: npm
+  name: tf-checkout-react-native
+  url: https://www.npmjs.com/package/tf-checkout-react-native
+  install: npm install tf-checkout-react-native
+  official: true
+  version: 1.0.47
+  published: '2026-03-12'
+  license: MIT
+  repository: https://github.com/theticketfairy/tf-checkout-react-native
+  npm_maintainer: theticketfairy
+  note: >-
+    "TheTicketFairy ReactNative Checkout library" — embeds the full Ticket Fairy ticket checkout
+    (auth, cart, billing, payment, order confirmation, resale) in a React Native app. It is the
+    single richest public description of the Ticket Fairy REST API: src/api/Constants.ts names the
+    production, sandbox and staging API base URLs and src/api/ApiClient.ts names ~28 operations.
+- language: javascript
+  registry: npm
+  name: tf-checkout-react
+  url: https://www.npmjs.com/package/tf-checkout-react
+  install: npm install tf-checkout-react
+  official: true
+  version: 1.7.31
+  published: '2026-05-22'
+  license: MIT
+  npm_maintainer: theticketfairy
+  note: >-
+    Web (React) sibling of the React Native checkout library. Published under the same npm
+    account. The package ships no description, homepage or repository field on npm and has no
+    public GitHub repository in the theticketfairy organization, so it is undocumented outside
+    the tarball itself.
+- language: php
+  registry: null
+  name: ticket-fairy-events
+  url: https://github.com/theticketfairy/wp-plugin-tf-events
+  install: 'manual: install the plugin from the GitHub repository'
+  official: true
+  version: 1.0.5
+  published: null
+  license: GPL-2.0-or-later
+  note: >-
+    WordPress plugin ("Ticket Fairy Events") that renders a brand's or venue's upcoming events via
+    the `[ttf_events_list]` shortcode. Version 1.0.5 is read from the plugin header in
+    ticket-fairy-events.php; the plugin is NOT listed on the WordPress.org plugin directory
+    (api.wordpress.org/plugins/info/1.0/ticket-fairy-events.json returns {"error":"Plugin not
+    found."}), so there is no registry metadata endpoint to date it. Distribution is
+    GitHub-repository-only, unversioned by tag, and the file itself is the only version marker.
+    Notably, this plugin is where the public API host www.theticketfairy.com/api/public/
+    is published in the clear.
+- language: javascript
+  registry: npm
+  name: '@theticketfairy/cli'
+  url: https://www.npmjs.com/package/@theticketfairy/cli
+  install: brew install theticketfairy/tap/ticketfairy
+  official: true
+  version: null
+  published: null
+  note: >-
+    NOT PUBLISHED. The company maintains a public Homebrew tap
+    (github.com/theticketfairy/homebrew-tap, last pushed 2026-05-11) whose README documents
+    `brew install theticketfairy/tap/ticketfairy`, but the formula it ships still carries the
+    unreplaced release placeholders — `version "0.0.0"`, a sha256 of all zeros, and a tarball URL
+    (registry.npmjs.org/@theticketfairy/cli/-/cli-0.0.0.tgz) that returns 404. The npm package
+    @theticketfairy/cli itself returns 404 and the source repo (theticketfairy/ticketfairy-cli)
+    is private. Recorded as version: null because the CLI has been announced but never released:
+    the documented install command cannot succeed today.
+counts:
+  total: 4
+  official: 4
+  published_to_a_registry: 2
