@@ -42,6 +42,19 @@ modified: '2026-08-13'
 tags:
 - Company
 - Ticketing
+- Event
+- Event Management
+- Payments
+- Marketing
+- Entertainment
+- Checkout
+- Festivals
+- Live Events
+- Embedded Commerce
+- Access Control
+tags_raw:
+- Company
+- Ticketing
 - Events
 - Event Management
 - Payments
@@ -67,6 +80,11 @@ apis:
   humanURL: https://www.ticketfairy.com/event-ticketing/embedded-ticket-checkout
   baseURL: https://www.ticketfairy.com/api
   tags:
+  - Ticketing
+  - Checkout
+  - Event
+  - Payments
+  tags_raw:
   - Ticketing
   - Checkout
   - Events
