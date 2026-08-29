@@ -15,6 +15,17 @@ description: >-
   authentication documentation. It does publish an llms.txt and serves a Markdown twin of every
   website page.
 url: https://raw.githubusercontent.com/api-evangelist/the-ticket-fairy/refs/heads/main/apis.yml
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: false
+  label: Hosted service · you call their endpoint
+  confidence: medium
+  source:
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: transaction-fee
   onboarding: self-serve
