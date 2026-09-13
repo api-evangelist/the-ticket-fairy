@@ -1,0 +1,108 @@
+{
+  "specVersion": "1.0",
+  "host": {
+    "displayName": "Ticket Fairy",
+    "identifier": "urn:air:ticketfairy.com",
+    "url": "https://www.ticketfairy.com",
+    "description": "Ticketing, marketing and operations platform for live events: festivals, club nights, concerts, conferences and tours."
+  },
+  "entries": [
+    {
+      "identifier": "urn:air:ticketfairy.com:server:mcp",
+      "displayName": "Ticket Fairy MCP Server",
+      "description": "Model Context Protocol server for managing events, ticket types, orders and sales. It ships inside the Ticket Fairy command-line tool (npm install -g ticketfairy) and runs locally over stdio. The linked document names the package, the command and the transport.",
+      "type": "application/json",
+      "url": "https://www.ticketfairy.com/mcp",
+      "representativeQueries": [
+        "connect my AI assistant to Ticket Fairy",
+        "create an event and its ticket types on Ticket Fairy",
+        "check how many tickets my event has sold",
+        "does Ticket Fairy have an MCP server"
+      ]
+    },
+    {
+      "identifier": "urn:air:ticketfairy.com:profile:ucp",
+      "displayName": "Ticket Fairy UCP Profile",
+      "description": "Universal Commerce Protocol profile listing the protocol version and the commerce services currently available to agents on this domain.",
+      "type": "application/json",
+      "url": "https://www.ticketfairy.com/.well-known/ucp",
+      "representativeQueries": [
+        "does Ticket Fairy support Universal Commerce Protocol",
+        "which UCP commerce services can I use on Ticket Fairy"
+      ]
+    },
+    {
+      "identifier": "urn:air:ticketfairy.com:profile:acp",
+      "displayName": "Ticket Fairy ACP Profile",
+      "description": "Agentic Commerce Protocol profile listing the protocol version and the commerce services currently available to agents on this domain.",
+      "type": "application/json",
+      "url": "https://www.ticketfairy.com/.well-known/acp.json",
+      "representativeQueries": [
+        "does Ticket Fairy support Agentic Commerce Protocol",
+        "which ACP commerce services can I use on Ticket Fairy"
+      ]
+    },
+    {
+      "identifier": "urn:air:ticketfairy.com:catalog:llms-index",
+      "displayName": "Ticket Fairy Capability Index",
+      "description": "Short llmstxt.org index of what the platform does, who it suits, how it is priced and where it operates, with a link for anything deeper.",
+      "type": "text/plain",
+      "url": "https://www.ticketfairy.com/llms.txt",
+      "representativeQueries": [
+        "what does Ticket Fairy do",
+        "which ticketing platform should I use for a festival",
+        "how much does Ticket Fairy charge to sell tickets"
+      ]
+    },
+    {
+      "identifier": "urn:air:ticketfairy.com:catalog:llms-full",
+      "displayName": "Ticket Fairy Platform Description",
+      "description": "The same catalogue in full: every capability described in a paragraph, for an agent answering a detailed question about the platform.",
+      "type": "text/plain",
+      "url": "https://www.ticketfairy.com/llms-full.txt",
+      "representativeQueries": [
+        "does Ticket Fairy support RFID wristbands and cashless payments",
+        "which payment methods and countries does Ticket Fairy support",
+        "how does Ticket Fairy stop ticket scalping",
+        "can I sell tickets from my own website with Ticket Fairy"
+      ]
+    },
+    {
+      "identifier": "urn:air:ticketfairy.com:index:sitemap",
+      "displayName": "Event and Page Index",
+      "description": "Sitemap index covering every listed event, city guide, venue guide and page on the platform, split into per-country files. Each page it names also answers in Markdown: add .md to its URL, or send Accept: text/markdown.",
+      "type": "application/xml",
+      "url": "https://www.ticketfairy.com/sitemap.xml",
+      "representativeQueries": [
+        "list every event on sale on Ticket Fairy",
+        "find live music events in a particular city",
+        "which festivals still have tickets available",
+        "where is the full catalogue of Ticket Fairy events"
+      ]
+    },
+    {
+      "identifier": "urn:air:ticketfairy.com:mcp:public-events",
+      "displayName": "Ticket Fairy Public Event Search",
+      "description": "Find public events through the Model Context Protocol and follow event links to continue in browser checkout. No account is required to search.",
+      "type": "application/mcp-server-card+json",
+      "url": "https://www.ticketfairy.com/agentic/mcp/server-card",
+      "representativeQueries": [
+        "find public events on Ticket Fairy",
+        "search for live music events in my city",
+        "find the event page where I can buy tickets"
+      ]
+    },
+    {
+      "identifier": "urn:air:ticketfairy.com:a2a:public-events",
+      "displayName": "Ticket Fairy A2A Public Event Search",
+      "description": "Find public events through Agent2Agent and follow event links to continue in browser checkout. No account is required to search.",
+      "type": "application/json",
+      "url": "https://www.ticketfairy.com/.well-known/agent-card.json",
+      "representativeQueries": [
+        "find the Ticket Fairy A2A agent card",
+        "search public events through Agent2Agent",
+        "find official event links for ticket purchases"
+      ]
+    }
+  ]
+}
