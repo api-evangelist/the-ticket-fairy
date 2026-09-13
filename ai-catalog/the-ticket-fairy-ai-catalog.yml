@@ -51,6 +51,7 @@ conformance:
       ARD permits extension types without core registration.'
     - '[Ticket Fairy A2A Public Event Search] Media type ''application/json'' is a valid application extension
       media type. ARD permits extension types without core registration.'
+  did_web: null
 catalog:
   host_display_name: Ticket Fairy
   host_identifier: urn:air:ticketfairy.com
